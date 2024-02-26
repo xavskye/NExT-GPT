@@ -144,9 +144,9 @@ export class VideoApi implements LLMApi {
       /**
        * 循环获取视频
        */
-      const loopGetVideo = async () => {
+      const loopGetVideo = async (videoId: any) => {
         try {
-          const res = await fetch(this.path(VideoPath.VideoPath), {
+          const res = await fetch(this.path(`${VideoPath.VideoPath}/${videoId}`), {
             method: "GET",
             headers: {
               ...getHeaders(),
@@ -291,7 +291,7 @@ export class VideoApi implements LLMApi {
 
         if (resJson.video_id) {
           showToast('请求成功！请等待视频生成');
-          loopGetVideo();
+          loopGetVideo(resJson.video_id);
         } else {
           showToast('请求失败');
         }
